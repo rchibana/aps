@@ -2,13 +2,19 @@
 
 __author__ = 'rchibana'
 
-from app import db
+from database import Base
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
 
 
-class User(db.Model):
-    email = db.Column(db.String(50), unique=True)
-    phone = db.Column(db.String(16), unique=True)
-    addresses = db.relationship('Address', backref='user', lazy='dynamic')
+class User(Base):
+
+    __tablename__ = 'user'
+
+    id = Column(Integer, primary_key=True)
+    email = Column(String(50), unique=True)
+    phone = Column(String(16), unique=True)
+    addresses = relationship('address', backref='user')
 
     def __init__(self, email, phone):
         self.email = email
