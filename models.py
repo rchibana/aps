@@ -3,11 +3,12 @@ __author__ = 'rchibana'
 from app import db
 from datetime import datetime
 
+
 class Address(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     latitude = db.Column(db.String(30))
     longitude = db.Column(db.String(30))
-    date = db.Column(db.DateTime, default=datetime.now())
+    date = db.Column(db.DateTime, default=datetime.now)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
