@@ -2,39 +2,50 @@ __author__ = 'rchibana'
 
 from flask import request, jsonify
 from flask_restful import Resource
-from database import db_session as db
-from models.address import Address
-from models.user import User
+from models import Address, User
+from app import db
+
+import datetime
 
 
 class Overflow(Resource):
 
-    def get(self, overflow_id):
-        """
-        Will get all the overflow at last 1 hour
-        :return:
-        """
+    def get(self, time):
 
+        date = datetime.datetime.now() - datetime.timedelta(minutes=time)
+        addresses = Address.query.filter(Address.date >= date)
 
-        return {'teste': 'isso foi um get'}
+        return jsonify(result=[address.serialize for address in addresses.all()])
 
     def post(self):
 
-        request_user = request.json
-        request_address = request.data['address']
+        data = request.json
+        user_id = data['user_id']
+        address_data = data['address']
 
-        user = User(request_user.get('email', ''), request_user.get('phone', ''))
-        address = Address(request_address.get('latitude'), request_address.get('longitude'))
+        user = User.query.get(user_id)
 
-        # Creating the user
+        if not user:
+            return jsonify({
+                'status': 'error',
+                'message': 'User not found'
+            })
+
+        longitude = address_data.get('longitude', None)
+        latitude = address_data.get('latitude', None)
+
+        address = Address(
+            longitude=longitude,
+            latitude=latitude)
+
+        user.addresses.append(address)
+
         db.session.add(user)
-
-        address.user_id = user.id
         db.session.add(address)
 
-        db.commit()
+        db.session.commit()
 
         return jsonify({
-                    'status': 'ok',
-                    'response': 'success'
-                })
+            'status': 'ok',
+            'message': 'success'
+        })
