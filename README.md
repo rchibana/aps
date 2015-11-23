@@ -11,9 +11,9 @@ Then wait the installation...
 # Database
 Now is the time to start the database. The database is sqlite but you can change ;)
 
-$ python manage.py db init
-$ python manage.py db migrate
-$ python manage.py db upgrade
+$ python manage.py db init <br/>
+$ python manage.py db migrate <br/>
+$ python manage.py db upgrade <br/>
 
 #Using!
 
