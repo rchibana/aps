@@ -5,6 +5,8 @@ __author__ = 'rchibana'
 from flask import Flask
 from flask_restful import Api
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.migrate import MigrateCommand, Migrate
+import os
 
 from settings import DB_URI
 
@@ -19,6 +21,8 @@ def create_app():
     db.init_app(app)
 
     api_register(app)
+
+    migrate = Migrate(app, db)
 
     return app
 
@@ -36,3 +40,7 @@ def api_register(app):
     api.add_resource(UserResource, '/user', '/user/')
 
     return api
+
+if __name__=='__main__':
+    app = create_app()
+    app.run(port=os.environ.get('$PORT'))
