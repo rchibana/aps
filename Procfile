@@ -1,1 +1,2 @@
-web: gunicorn manage:app
+web: gunicorn app:app
+init: python db_create.py
