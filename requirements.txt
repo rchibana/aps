@@ -4,3 +4,4 @@ flask-restful
 flask-migrate
 flask-script
 psycopg2
+gunicorn

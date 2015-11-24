@@ -1,1 +1,1 @@
-web: gunicorn aps.wsgi --log-file -
+web: gunicorn manage:app
