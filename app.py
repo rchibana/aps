@@ -5,7 +5,7 @@ __author__ = 'rchibana'
 from flask import Flask
 from flask_restful import Api
 from flask.ext.sqlalchemy import SQLAlchemy
-
+import os
 from settings import DB_URI
 
 db = SQLAlchemy()
