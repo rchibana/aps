@@ -16,8 +16,6 @@ def create_app():
     app.config['DEBUG'] = True
     app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
 
-    app.config['PORT'] = os.environ.get('PORT', 5000)
-
     db.init_app(app)
 
     api_register(app)
