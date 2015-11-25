@@ -1,1 +1,1 @@
-web: python manage.py runserver -p $PORT -D
+web: python manage.py runserver -D
