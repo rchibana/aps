@@ -1,1 +1,1 @@
-web: python manager.py runserver -D
+web: python manage.py runserver -D
